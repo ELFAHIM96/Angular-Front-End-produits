@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="panel panel-primary">
+  <div class="panel-heading">Liste des produits</div>
+    <div class="panel-body">
+      <form #f="ngForm" (ngSubmit)="onChercher(f.value)">
+        <div class="form-group">
+          <label>Keyword</label>
+          <input type="text" name="keywords" ngModel>
+          <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search"></span>
+            Chercher
+          </button>
+
+        </div>
+
+      </form>
+      <table *ngIf="produits" class="table table-bordered">
+        <tr>
+          <th>ID</th><th>DES</th><th>PRICE</th><th>QTE</th>
+        </tr>
+        <tr *ngFor="let p of produits._embedded.produits">
+          <td class="warning">{{p.id}}</td>
+        <td>{{p.designation}}</td>
+        <td>{{p.price|number:'0.2'}} <span class="glyphicon glyphicon-euro"> </span></td>
+        <td>{{p.quantite}}</td>
+          <td><a class="btn btn-danger" (click)="onDeleteProduits(p)"> <span class="glyphicon glyphicon-trash"></span> Delete </a> </td>
+          <td><a class="btn btn-success" (click)="onEditProduits(p)"> <span class="glyphicon glyphicon-edit"></span> Edite </a> </td>
+
+        </tr>
+      </table>
+      <ul  *ngIf="pages" class="nav nav-pills">
+        <li class="clickable" [ngClass]="i==currentpage?'active':''" *ngFor="let p of pages;let i=index">
+          <a (click)="onPageProduit(i)">{{i}}</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
